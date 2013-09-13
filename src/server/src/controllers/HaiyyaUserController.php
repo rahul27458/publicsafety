@@ -38,9 +38,10 @@ class HaiyyaUserController extends \BaseController {
                 if($user)
                 {
                         return Response::json(array(
-                                'error' => 'true',
+                                'error' => 'false',
                                 'message' => 'User exists.',
-                        ), 400);
+                                'key' => $user->key,
+                        ), 200);
                 }
                 $user = new HaiyyaUser();
 
