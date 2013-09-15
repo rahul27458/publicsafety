@@ -1,6 +1,7 @@
 <?php
 Route::group(array('prefix' => 'api/v1'), function()
 {
+        Route::post('user/login', 'HaiyyaUserController@login')
         Route::resource('user', 'HaiyyaUserController');
         Route::resource('connection', 'ConnectionController');
         Route::resource('alert', 'AlertController');
