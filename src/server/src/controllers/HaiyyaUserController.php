@@ -25,6 +25,29 @@ class HaiyyaUserController extends \BaseController {
                 return Error::notAllowed("GET");
         }
 
+        
+        public function login()
+        {
+                $user = HaiyyaUser::where('mobile_number', '=', Request::get('mobile_number'))
+                        ->where('password', '=', Hash::check(Request::get('password')))
+                        ->first();
+                        
+                if(!$user)
+                {
+                        return Response::json(array(
+                                'error' => 'true',
+                                'message' => 'Invalid credentials',
+                        ), 200);
+                }
+                
+                return Response::json(array(
+                        'error' => 'true',
+                        'message' => 'logged in',
+                        'key' => $user->key,
+                ));
+        }
+        
+        
         /**
          * Store a newly created resource in storage.
          *
@@ -40,8 +63,7 @@ class HaiyyaUserController extends \BaseController {
                         return Response::json(array(
                                 'error' => 'false',
                                 'message' => 'User exists.',
-                                'key' => $user->key,
-                        ), 200);
+                        ), 400);
                 }
                 $user = new HaiyyaUser();
 
